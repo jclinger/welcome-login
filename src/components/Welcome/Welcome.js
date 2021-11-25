@@ -79,14 +79,15 @@ const WelcomeScreen = () => {
               gridColumn: '1', gridRow: 'span 2'
             }}
           >
-            <ConfirmationDialog
-              dialogType={"edit"}
-              parentProps={parentProps}
-            />
-            <ConfirmationDialog
-              dialogType={"delete"}
-              parentProps={parentProps}
-            />
+            {["edit", "delete"].map((type, index) => {
+              return (
+                <ConfirmationDialog
+                  key={index}
+                  dialogType={type}
+                  parentProps={parentProps}
+                />
+              )
+            })}
             <Item key={24} elevation={24}>
               <br/>
               {`Welcome!`}
