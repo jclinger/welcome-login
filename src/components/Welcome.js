@@ -9,8 +9,49 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
+import { staticImage } from "../images/index";
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            left: 200,
+            bottom: 3,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -34,6 +75,7 @@ const WelcomeScreen = () => {
 	};
 
   // TODO move dialog to its own component for reusability 
+  // TODO don't hard code button content, pass in data for it
 
   const handleOpen = (editButton) => {
     if(editButton) {
@@ -49,6 +91,10 @@ const WelcomeScreen = () => {
     } else {
       setOpenDelete(false);
     }
+  };
+  const handleDelete = () => {
+      setOpenDelete(false);
+      window.location.reload(true);
   };
 
   return (
@@ -68,7 +114,8 @@ const WelcomeScreen = () => {
               gridColumn: '1', gridRow: 'span 2'
             }}
           >
-            <Dialog
+
+            {/* <Dialog
               fullScreen={fullScreen}
               open={openEdit}
               onClose={() => handleClose(true)}
@@ -87,19 +134,41 @@ const WelcomeScreen = () => {
                   Okay
                 </Button>
               </DialogActions>
-            </Dialog>
-            <Dialog
-              fullScreen={fullScreen}
-              open={openDelete}
-              onClose={() => handleClose(false)}
-              aria-labelledby="responsive-dialog-title"
+            </Dialog> */}
+
+            <BootstrapDialog
+              onClose={() => handleClose(true)}
+              aria-labelledby="customized-dialog-title"
+              open={openEdit}
             >
-              <DialogTitle id="responsive-dialog-title">
-                {"Delete Account"}
-              </DialogTitle>
+              <BootstrapDialogTitle id="customized-dialog-title" onClose={() => handleClose(true)}>
+                Account Edited
+              </BootstrapDialogTitle>
               <DialogContent>
                 <DialogContentText>
-                  Please confirm that you want to permanently delete your account.
+                  Your account settings have been saved.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => handleClose(true)} autoFocus>
+                  Okay
+                </Button>
+              </DialogActions>
+            </BootstrapDialog>
+
+            <BootstrapDialog
+              onClose={() => handleClose(false)}
+              aria-labelledby="customized-dialog-title"
+              open={openDelete}
+            >
+              <BootstrapDialogTitle id="customized-dialog-title" onClose={() => handleClose(false)} />
+                {/* Delete Account?
+              </BootstrapDialogTitle> */}
+              {/* <img src="http://lorempixel.com/240/180" /> */}
+              <img src={staticImage} />
+              <DialogContent>
+                <DialogContentText>
+                  Are you sure you want to delete your account?
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -107,13 +176,15 @@ const WelcomeScreen = () => {
                   Cancel
                 </Button>
                 <Button 
-                  onClick={() => handleClose(false)} autoFocus
+                  onClick={handleDelete}
                   color="secondary"
                 >
                   Delete
                 </Button>
               </DialogActions>
-            </Dialog>
+            </BootstrapDialog>
+
+
             <Item key={24} elevation={24}>
               <br/>
               {`Welcome!`}
