@@ -14,7 +14,8 @@ import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
-import { staticImage } from "../images/index";
+import { staticImage } from "../../images/index";
+import "./Welcome.css"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -23,21 +24,28 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogActions-root': {
     padding: theme.spacing(1),
   },
+  '& .DialogTitle-root': {
+    justifyContent: "right !important",
+  },
 }));
 
 const BootstrapDialogTitle = (props) => {
   const { children, onClose, ...other } = props;
 
   return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+    <DialogTitle sx={{ 
+      m: 0, 
+      p: 2, 
+      justifyItems: "right" 
+      }} {...other}>
       {children}
       {onClose ? (
         <IconButton
           aria-label="close"
           onClick={onClose}
           sx={{
-            left: 200,
-            bottom: 3,
+            left: "calc((100%) - 20px)",
+            bottom: 8,
             color: (theme) => theme.palette.grey[500],
           }}
         >
@@ -141,12 +149,10 @@ const WelcomeScreen = () => {
               aria-labelledby="customized-dialog-title"
               open={openEdit}
             >
-              <BootstrapDialogTitle id="customized-dialog-title" onClose={() => handleClose(true)}>
-                Account Edited
-              </BootstrapDialogTitle>
+              <BootstrapDialogTitle id="customized-dialog-title" onClose={() => handleClose(true)} />
               <DialogContent>
                 <DialogContentText>
-                  Your account settings have been saved.
+                  Your account has been edited.
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
@@ -162,10 +168,7 @@ const WelcomeScreen = () => {
               open={openDelete}
             >
               <BootstrapDialogTitle id="customized-dialog-title" onClose={() => handleClose(false)} />
-                {/* Delete Account?
-              </BootstrapDialogTitle> */}
-              {/* <img src="http://lorempixel.com/240/180" /> */}
-              <img src={staticImage} />
+                <img src={staticImage} />
               <DialogContent>
                 <DialogContentText>
                   Are you sure you want to delete your account?
