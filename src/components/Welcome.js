@@ -23,7 +23,7 @@ const WelcomeScreen = () => {
 	};
 
   return (
-    <Grid container spacing={1} aria-label="welcome page">
+    <Grid container spacing={3} aria-label="welcome page">
       <Grid item xs={12} key={1}>
         <ThemeProvider theme={lightTheme}>
           <Box
@@ -31,7 +31,7 @@ const WelcomeScreen = () => {
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'column',
-              width: '95%',
+              width: '99%',
               mx: '1%',
               my: '3%',
               bgcolor: 'background.default',
@@ -45,13 +45,34 @@ const WelcomeScreen = () => {
               <br/>
               <br/>
               <br/>
-              <Button
-              variant="contained"
-              color="primary"
-              onClick={handleLogout}
-              >
-                Log Out
-              </Button>
+              <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
+                <Grid key={1} item>
+                  <Button
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleLogout}
+                  >
+                    Edit Account
+                  </Button>
+                </Grid>
+                <Grid key={2} item>
+                  <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={handleLogout}
+                  >
+                    Delete Account
+                  </Button>
+                </Grid>
+                <Grid key={3} item>
+                  <Button
+                  variant="outlined"
+                  onClick={handleLogout}
+                  >
+                    Log Out
+                  </Button>
+                </Grid>
+              </Grid>
             </Item>
           </Box>
         </ThemeProvider>
