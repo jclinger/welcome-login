@@ -2,7 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import WelcomeScreen from "../Welcome";
 
-test("Home Page renders", async () => {
+test("Welcome Page renders", async () => {
     render(<WelcomeScreen />);
 
     expect(

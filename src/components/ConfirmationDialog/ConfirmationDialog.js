@@ -57,9 +57,8 @@ BootstrapDialogTitle.propTypes = {
 
 /**
  * Passes in inputs to customize the dialog box
- * @param {parentProps} props passes functionality that governs dialog behavior
- * @param {dialogType} props specifies the type of dialog box
- * @returns
+ * @param parentProps passes functionality that governs dialog behavior
+ * @param dialogType specifies the type of dialog box
  */
 const ConfirmationDialog = (props) => {
 	const { dialogType, parentProps } = props;
@@ -68,13 +67,16 @@ const ConfirmationDialog = (props) => {
 	const handleDelete = parentProps.handleDelete;
 	const openEdit = parentProps.openEdit;
 	const openDelete = parentProps.openDelete;
+  const deleteDialog = parentProps.deleteDialog;
+  const editDialog = parentProps.editDialog;
+  const confirmButton = parentProps.confirmButton;
 
 	return (
 		<BootstrapDialog
 			onClose={() =>
 				dialogType === "delete" ? handleClose(false) : handleClose(true)
 			}
-			aria-labelledby="customized-dialog-title"
+			aria-label="customized-dialog-title"
 			open={dialogType === "delete" ? openDelete : openEdit}
 		>
 			<BootstrapDialogTitle
@@ -89,8 +91,8 @@ const ConfirmationDialog = (props) => {
 			<DialogContent>
 				<DialogContentText>
 					{dialogType === "delete"
-						? "Are you sure you want to delete your account?"
-						: "Your account has been edited."}
+						? deleteDialog
+						: editDialog}
 				</DialogContentText>
 			</DialogContent>
 			<DialogActions>
@@ -100,7 +102,7 @@ const ConfirmationDialog = (props) => {
 							Cancel
 						</Button>
 						<Button onClick={handleDelete} color="secondary">
-							Delete
+							{confirmButton}
 						</Button>
 					</>
 				) : (

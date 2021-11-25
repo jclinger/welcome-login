@@ -15,6 +15,8 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+Basic UI tests have been written for each of the components
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
@@ -24,3 +26,14 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### Welcome Screen
+
+This screen shows several buttons with Edit, Account Deletion, and Logout functionality.
+User is not really logged in, this is just mocked for basic UI functionality.
+
+### Confirmation Dialog
+
+This is a reusable component for customizable notifications with just an Okay button, as
+well as a Confirm/Cancel dialog box with customizable wording as well as what the confirm button
+will say

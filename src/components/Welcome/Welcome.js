@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import ConfirmationDialog from "../Dialog/ConfirmationDialog"
+import ConfirmationDialog from "../ConfirmationDialog/ConfirmationDialog"
 import "./Welcome.css"
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -17,16 +17,20 @@ const Item = styled(Paper)(({ theme }) => ({
   fontSize: '20px'
 }));
 
+/**
+ * Welcome page with Edit, Delete and Logout functionality
+ */
 const WelcomeScreen = () => {
   const lightTheme = createTheme({ palette: { mode: 'light' } });
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDelete, setOpenDelete] = React.useState(false);
+  const deleteDialog = "Are you sure you want to delete your account?";
+  const editDialog = "Your account has been edited";
+  const confirmButton = "Delete";
 
   const handleLogout = () => {
     window.location.assign('https://www.bluebeam.com/');
 	};
-
-  // TODO don't hard code button content, pass in data for it
 
   const handleOpen = (editButton) => {
     if(editButton) {
@@ -52,7 +56,10 @@ const WelcomeScreen = () => {
     handleClose,
     handleDelete,
     openEdit,
-    openDelete
+    openDelete,
+    deleteDialog,
+    editDialog,
+    confirmButton
   }
 
   return (
